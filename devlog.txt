@@ -1,0 +1,7 @@
+yuhangP -- 2026-3-27 17:48
+Summary of Design Doc Changes:
+- added target ship date to 4/20/2026
+- explained what's contained in the two datasets we're using and how we will use it
+- reorganized info so not everything is condensed in one place
+- included specific js files that we might be using
+- added what graphs/charts we plan on using d3js for
