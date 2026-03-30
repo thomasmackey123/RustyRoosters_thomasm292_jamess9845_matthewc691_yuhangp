@@ -63,3 +63,29 @@ def login():
         return redirect(url_for("dashboard"))
 
     return render_template('login.html')
+
+@app.route("/dashboard", methods=['GET', 'POST'])
+def dashboard():
+    # gets json request
+    return render_template('dashboard.html',
+                           username = session["username"])
+
+@app.route("/profile", methods=['GET', 'POST'])
+def profile():
+    return render_template('profile.html')
+
+@app.route("/visualize", methods=['GET', 'POST'])
+def visualize():
+    return render_template('visualize.html')
+
+@app.route("/calculate", methods=['GET', 'POST'])
+def calculate():
+    return render_template('calculate.html')
+
+@app.route("/error", methods=['GET', 'POST'])
+def error():
+    return render_template('error.html')
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
