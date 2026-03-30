@@ -5,3 +5,8 @@ Summary of Design Doc Changes:
 - reorganized info so not everything is condensed in one place
 - included specific js files that we might be using
 - added what graphs/charts we plan on using d3js for
+
+yuhangP -- 2026-3-30 11:38
+- added flask routes in init py, set up basic acc authentication
+- added basic html template for all the pages
+- added requirements.txt file
