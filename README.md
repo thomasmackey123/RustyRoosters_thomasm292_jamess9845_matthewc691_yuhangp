@@ -1,4 +1,4 @@
-# RustyRoosters_thomasm292_jamess9845_matthewc691_yuhangp
+# RustyRoosters
 
 # Roster
 Thomas Mackey (PM), James Sun, Matthew Ciu, Yuhang Pan
