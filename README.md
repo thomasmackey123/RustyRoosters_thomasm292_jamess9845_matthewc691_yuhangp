@@ -4,7 +4,7 @@
 Thomas Mackey (PM), James Sun, Matthew Ciu, Yuhang Pan
 
 # Description
-Our website is a meal calorie calculator. Users can sign up/login, track a meal’s calories through a db of known food calories from a dataset, save them to their account, and view them later on a personal profile page. Users can look through charts and graphs to view how their meals compare to a large sample of data.
+Fitness Genie is a meal calorie calculator. Users can sign up/login, track a meal’s calories through a db of known food calories from a dataset, save them to their account, and view them later on a personal profile page. Users can look through charts and graphs to view how their meals compare to a large sample of data.
 #### Visit our live site at [Fitness Genie](http://104.236.38.28:8000)
 
 # Install Guide
