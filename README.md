@@ -4,4 +4,39 @@
 Thomas Mackey (PM), James Sun, Matthew Ciu, Yuhang Pan
 
 # Description
-Fitness Genie is a meal calorie calculator. Users can sign up/login, track a meal's calories through a database of known foods, save them to their account, and view them later in a personal profile page. Users can look through premade graphs to determine how their meals differ from other users. 
+Fitness Genie is a meal calorie calculator. Users can sign up/login, track a meal's calories through a database of known foods, save them to their account, and view them later in a personal profile page. Users can look through premade graphs to determine how their meals differ from other users.  
+#### Visit our live site at [Fitness Genie](http://104.236.38.28:8000)
+
+# Install Guide
+1. Clone the repository
+```
+git clone git@github.com:thomasmackey123/RustyRoosters_thomasm292_jamess9845_matthewc691_yuhangp.git FitnessGenie
+```
+2. Navigate into the cloned directory
+```
+cd FitnessGenie
+```
+3. Create virtual environment
+```
+python -m venv venv
+```
+4. Activate virtual environment (macOS/Linux)
+```
+. venv/bin/activate
+```
+5. Install packages
+```
+pip install -r requirements.txt
+```
+6. Create database
+```
+python app/data.py
+```
+7. Launch app
+```
+python app/__init__.py
+```
+8. In a browser, open the running app on
+```
+http://127.0.0.1:8000
+```

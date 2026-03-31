@@ -10,3 +10,7 @@ yuhangP -- 2026-3-30 11:38
 - added flask routes in init py, set up basic acc authentication
 - added basic html template for all the pages
 - added requirements.txt file
+
+yuhangP -- 2026-3-31 19:45
+- remotely served app at http://104.236.38.28:8000
+- updated readme with install guide and site link
