@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
-from data import check_acc, check_password, insert_acc, get_user_info
+from .data import check_acc, check_password, insert_acc, get_user_info
 
 app = Flask(__name__)
 app.secret_key = "secret"
@@ -88,4 +88,4 @@ def error():
 
 if __name__ == "__main__":
     app.debug = False
-    app.run()
+    app.run(host='0.0.0.0', port=8000)
