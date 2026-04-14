@@ -34,7 +34,7 @@ python app/data.py
 ```
 7. Launch app
 ```
-python app/__init__.py
+python -m app.__init__
 ```
 8. In a browser, open the running app on
 ```
