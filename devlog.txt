@@ -21,3 +21,6 @@ yuhangP -- 2026-4-13 21:22
 yuhangP -- 2026-4-14 22:52
 - used d3.csv to read through dataset of 2000 user nutritional info and display a scatterplot
 - made proper foods, meals, and meal-items table in data.py 
+
+jamesS -- 2026-4-15 11:38
+- added style.css, implementing css using bootstrap on login/register html
