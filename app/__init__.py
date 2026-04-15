@@ -80,7 +80,12 @@ def visualize():
 
 @app.route("/calculate", methods=['GET', 'POST'])
 def calculate():
-    return render_template('calculate.html')
+    search = request.args.get("searchbar")
+    if search:
+        search = search.strip().lower()
+        #foods = search_food(search)
+    return render_template('calculate.html',
+                            foods = foods)
 
 @app.route("/error", methods=['GET', 'POST'])
 def error():

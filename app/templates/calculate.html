@@ -7,5 +7,26 @@
   <h2>Calcualte calorie page</h2>
   <h3>hi {{username}}!</h3>
   <p>work in progress or sum</p>
+  <div class="selected-foods">
+    {% if foods %}
+      <p>we have data</p>
+      {% for food in foods %}
+        <div class="food-card">
+          <p>{{ food.name }}</p>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="select-food">
+    <div class="form-group">
+      <label for="foodName"></label>
+      <input id="foodName" type="text" placeholder="e.g., chihuahua cheese">
+      <div class="form-help">Required.</div>
+    </div>
+    <form method="get" action="/dashboard">
+      <input type="text" name="searchbar" placeholder="Search for tierlist..."
+        value="{{ request.args.get('searchbar', '') }}"">
+    </form>
+  </div>
 </div>
 {% endblock %}
