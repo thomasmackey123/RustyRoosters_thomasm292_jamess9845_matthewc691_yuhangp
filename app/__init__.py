@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
-from .data import check_acc, check_password, insert_acc, get_user_info
+from .data import *
 
 app = Flask(__name__)
 app.secret_key = "secret"
@@ -81,9 +81,10 @@ def visualize():
 @app.route("/calculate", methods=['GET', 'POST'])
 def calculate():
     search = request.args.get("searchbar")
+    foods = []
     if search:
         search = search.strip().lower()
-        #foods = search_food(search)
+        foods = search_food(search)
     return render_template('calculate.html',
                             foods = foods)
 

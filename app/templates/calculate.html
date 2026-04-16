@@ -9,7 +9,6 @@
   <p>work in progress or sum</p>
   <div class="selected-foods">
     {% if foods %}
-      <p>we have data</p>
       {% for food in foods %}
         <div class="food-card">
           <p>{{ food.name }}</p>
@@ -18,14 +17,10 @@
     {% endif %}
   </div>
   <div class="select-food">
-    <div class="form-group">
-      <label for="foodName"></label>
-      <input id="foodName" type="text" placeholder="e.g., chihuahua cheese">
-      <div class="form-help">Required.</div>
-    </div>
-    <form method="get" action="/dashboard">
+    <form method="get" action="/calculate">
       <input type="text" name="searchbar" placeholder="Search for tierlist..."
         value="{{ request.args.get('searchbar', '') }}"">
+      <button type="submit">Search</button>
     </form>
   </div>
 </div>

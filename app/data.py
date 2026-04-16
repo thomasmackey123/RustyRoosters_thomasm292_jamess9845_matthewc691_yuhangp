@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import csv
 
 ABS_PATH = os.path.dirname(os.path.abspath(__file__))
 DB_FILE = os.path.join(ABS_PATH, "data.db")
@@ -22,7 +23,7 @@ def init_db():
     if 'created_at' not in columns:
         c.execute("ALTER TABLE users ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 
-    c.execute("CREATE TABLE IF NOT EXISTS foods (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL COLLATE NOCASE, calories FLOAT, protein FLOAT, carbs FLOAT, fat FLOAT)")
+    c.execute("CREATE TABLE IF NOT EXISTS foods (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE COLLATE NOCASE, calories FLOAT, protein FLOAT, carbs FLOAT, fat FLOAT)")
     c.execute("CREATE TABLE IF NOT EXISTS meals (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL COLLATE NOCASE, FOREIGN KEY (username) REFERENCES users(name) ON DELETE CASCADE)")
     c.execute("CREATE TABLE IF NOT EXISTS meal_items (id INTEGER PRIMARY KEY AUTOINCREMENT, meal_id INTEGER NOT NULL, food_id INTEGER NOT NULL, quantity REAL DEFAULT 1, FOREIGN KEY (meal_id) REFERENCES meals(id) ON DELETE CASCADE, FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE)")
     
@@ -57,3 +58,40 @@ def get_user_info(username):
     user = conn.execute("SELECT name, created_at FROM users WHERE name = ?", (username,)).fetchone()
     conn.close()
     return user
+
+def import_dataset(file):
+    conn = get_db_connection()
+    with open(file) as f:
+        reader = csv.DictReader(f)
+        rows = []
+        for row in reader:
+            rows.append((
+                row["food"],
+                float(row["Caloric Value"]),
+                float(row["Protein"]),
+                float(row["Carbohydrates"]),
+                float(row["Fat"])
+            ))
+        conn.executemany("INSERT OR IGNORE INTO foods (name, calories, protein, carbs, fat) VALUES (?, ?, ?, ?, ?)", rows)
+        conn.commit()
+        conn.close()
+
+csv_path1 = os.path.join(ABS_PATH, "static", "dataset", "FOOD-DATA-GROUP1.csv")
+csv_path2 = os.path.join(ABS_PATH, "static", "dataset", "FOOD-DATA-GROUP2.csv")
+csv_path3 = os.path.join(ABS_PATH, "static", "dataset", "FOOD-DATA-GROUP3.csv")
+csv_path4 = os.path.join(ABS_PATH, "static", "dataset", "FOOD-DATA-GROUP4.csv")
+csv_path5 = os.path.join(ABS_PATH, "static", "dataset", "FOOD-DATA-GROUP5.csv")
+
+import_dataset(csv_path1)
+import_dataset(csv_path2)
+import_dataset(csv_path3)
+import_dataset(csv_path4)
+import_dataset(csv_path5)
+
+def search_food(food):
+    conn = get_db_connection()
+    result = conn.execute("SELECT * FROM foods WHERE LOWER(name) LIKE ?", ("%" + food + "%",)).fetchall()
+    conn.close()
+    return result
+
+

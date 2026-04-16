@@ -24,3 +24,7 @@ yuhangP -- 2026-4-14 22:52
 
 jamesS -- 2026-4-15 11:38
 - added style.css, implementing css using bootstrap on login/register html
+
+yuhangP -- 2026-4-15 23:15
+- function to add all the food in the dataset into our sqlite table
+- added a searchbar in calculate page for users to search the food in their meals
