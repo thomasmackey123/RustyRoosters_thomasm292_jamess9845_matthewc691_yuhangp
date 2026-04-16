@@ -88,6 +88,12 @@ def calculate():
     return render_template('calculate.html',
                             foods = foods)
 
+@app.route("/add_food/<food>", methods=['GET', 'POST'])
+def add_food(food):
+
+    return render_template('calculate.html',
+                            foods = [])
+
 @app.route("/error", methods=['GET', 'POST'])
 def error():
     return render_template('error.html')

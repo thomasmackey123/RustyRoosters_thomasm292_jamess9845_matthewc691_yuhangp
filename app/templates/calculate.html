@@ -7,11 +7,17 @@
   <h2>Calcualte calorie page</h2>
   <h3>hi {{username}}!</h3>
   <p>work in progress or sum</p>
+  <div id="food-container">
+
+  </div>
   <div class="selected-foods">
     {% if foods %}
       {% for food in foods %}
         <div class="food-card">
-          <p>{{ food.name }}</p>
+          <p id="food-name">{{ food.name }}</p>
+          <form action="/add_food" method="get">
+            <button type="submit" name="add_food">Add</button>
+          </form>
         </div>
       {% endfor %}
     {% endif %}
