@@ -28,3 +28,6 @@ jamesS -- 2026-4-15 11:38
 yuhangP -- 2026-4-15 23:15
 - function to add all the food in the dataset into our sqlite table
 - added a searchbar in calculate page for users to search the food in their meals
+
+jamesS -- 2026-4-16 11:35
+- added basic bootstrap css to base.html for navbar and footer

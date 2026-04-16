@@ -13,29 +13,41 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <a href="{{ url_for('index') }}">Fitness whatever</a>
-        </div>
-        <div class="nav-links">
-            {% if session.get('username') %}
-            <a href="{{ url_for('dashboard') }}">Dashboard</a>
-            <a href="{{ url_for('visualize') }}">View</a>
-            <a href="{{ url_for('calculate') }}">Calculate</a>
-            <a href="{{ url_for('profile') }}">Profile</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
-            {% else %}
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('register') }}">Register</a>
-            {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="{{ url_for('index') }}">
+                Fitness Genie
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    {% if session.get('username') %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('visualize') }}">Visualize</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('calculate') }}">Calculate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-2" href="{{ url_for('register') }}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </nav>
-    <main class="container">
+    <main class="container py-5">
         {% block content %}{% endblock %}
     </main>
-    <footer>
-        <p>&copy; 2026 RustyRoosters. All rights reserved.</p>
+    <footer class="bg-dark text-light text-center py-3 mt-auto">
+        <small>&copy; 2026 RustyRoosters. All rights reserved.</small>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
