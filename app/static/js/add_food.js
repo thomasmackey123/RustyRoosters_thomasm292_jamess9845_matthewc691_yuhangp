@@ -1,7 +1,7 @@
-document.addEventListener('click' async (e)) => {
+document.addEventListener('click', async (e) => {
   const foodCard = e.target.closest("food-card");
 
-}
+})
 
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("food-container");

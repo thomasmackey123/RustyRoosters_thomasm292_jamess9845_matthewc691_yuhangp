@@ -94,4 +94,31 @@ def search_food(food):
     conn.close()
     return result
 
+def add_meal(username):
+    conn = get_db_connection()
+    conn.execute("INSERT INTO meals (username) VALUES (?)", (username,))
+    conn.commit()
+    conn.close()
 
+def get_meal(username):
+    conn = get_db_connection()
+    meal = conn.execute("SELECT id FROM meals WHERE username = ? ORDER BY id DESC LIMIT 1", (username,)).fetchone()
+    conn.close()
+    return meal
+
+def add_meal_item(meal_id, food_id):
+    conn = get_db_connection()
+    conn.execute("INSERT INTO meal_items (meal_id, food_id, quantity) VALUES (?, ?, ?)", (meal_id, food_id, 1,))
+    conn.commit()
+    conn.close()
+
+def get_meal_items(meal_id):
+    conn = get_db_connection()
+    meal_items = conn.execute("""
+                            SELECT foods.name, foods.calories, meal_items.quantity
+                            FROM meal_items
+                            JOIN foods ON foods.id = meal_items.food_id
+                            WHERE meal_items.meal_id = ?
+                            """, (meal_id,)).fetchall()
+    conn.close()
+    return meal_items

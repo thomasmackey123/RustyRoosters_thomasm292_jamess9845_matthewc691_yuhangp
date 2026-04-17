@@ -11,12 +11,18 @@
 
   </div>
   <div class="selected-foods">
+    {% for item in meal_items %}
+      <p>{{ item.name }} ({{ item.quantity }})</p>
+    {% endfor %}
+  </div>
+  <div class="searched-foods">
     {% if foods %}
       {% for food in foods %}
         <div class="food-card">
           <p id="food-name">{{ food.name }}</p>
-          <form action="/add_food" method="get">
-            <button type="submit" name="add_food">Add</button>
+          <form action="/add_food" method="post">
+            <input type="hidden" name="food_id" value="{{ food.id }}">
+            <button type="submit">Add</button>
           </form>
         </div>
       {% endfor %}
