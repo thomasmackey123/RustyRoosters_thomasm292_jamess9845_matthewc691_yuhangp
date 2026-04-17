@@ -31,3 +31,7 @@ yuhangP -- 2026-4-15 23:15
 
 jamesS -- 2026-4-16 11:35
 - added basic bootstrap css to base.html for navbar and footer
+
+yuhangP -- 2026-4-16 20:50
+- working buttons to add foods to the meal table
+- need to add remove food & choose quantity + display calories/other nutritional values
