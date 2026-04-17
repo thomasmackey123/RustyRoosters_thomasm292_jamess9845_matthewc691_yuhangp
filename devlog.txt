@@ -35,3 +35,6 @@ jamesS -- 2026-4-16 11:35
 yuhangP -- 2026-4-16 20:50
 - working buttons to add foods to the meal table
 - need to add remove food & choose quantity + display calories/other nutritional values
+
+jamesS -- 2026-4-16 22:16
+- improved base, register, and login css, added bootstrap layouts for login and register UI

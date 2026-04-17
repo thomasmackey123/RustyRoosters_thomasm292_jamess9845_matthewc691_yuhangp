@@ -1,33 +1,38 @@
 {% extends "base.html" %}
 
-{% block title %}Login - RR Fitness Genie{% endblock %}
+{% block title %}Login - Fitness Genie{% endblock %}
 
 {% block content %}
-<div style="max-width: 400px; margin: 4rem auto;">
-    <div class="card">
-        <h2 style="text-align: center; margin-bottom: 2rem;">Welcome Back</h2>
+<div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4 p-md-5">
+                <h1 class="h4 text-center mb-2">Welcome Back</h1>
+                <p class="text-center text-muted small mb-4">Log in to view your dashboard and meals.</p>
 
-        {% if error %}
-        <div class="error-msg">
-            {{ error }}
+                {% if error %}
+                <div class="alert alert-danger py-2" role="alert">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <form action="{{ url_for('login') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required autocomplete="username">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Log In</button>
+                </form>
+
+                <p class="text-center text-muted small mt-4 mb-0">
+                    Don't have an account? <a href="{{ url_for('register') }}">Sign up</a>
+                </p>
+            </div>
         </div>
-        {% endif %}
-
-        <form action="{{ url_for('login') }}" method="POST">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn" style="width: 100%;">Log In</button>
-        </form>
-
-        <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted);">
-            Don't have an account? <a href="{{ url_for('register') }}" style="color: var(--primary-color);">Sign up</a>
-        </p>
     </div>
 </div>
 {% endblock %}
