@@ -26,7 +26,7 @@ def init_db():
     c.execute("CREATE TABLE IF NOT EXISTS foods (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE COLLATE NOCASE, calories FLOAT, protein FLOAT, carbs FLOAT, fat FLOAT)")
     c.execute("CREATE TABLE IF NOT EXISTS meals (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL COLLATE NOCASE, FOREIGN KEY (username) REFERENCES users(name) ON DELETE CASCADE)")
     c.execute("CREATE TABLE IF NOT EXISTS meal_items (id INTEGER PRIMARY KEY AUTOINCREMENT, meal_id INTEGER NOT NULL, food_id INTEGER NOT NULL, quantity REAL DEFAULT 1, FOREIGN KEY (meal_id) REFERENCES meals(id) ON DELETE CASCADE, FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE)")
-    
+
     conn.commit()
     conn.close()
 
@@ -122,3 +122,16 @@ def get_meal_items(meal_id):
                             """, (meal_id,)).fetchall()
     conn.close()
     return meal_items
+
+def remove_meal_item(meal_id, food_id):
+    conn = get_db_connection()
+    conn.execute("DELETE FROM meal_items WHERE meal_id = ? AND food_id = ?", (meal_id, food_id,))
+    conn.commit()
+    conn.close()
+
+def add_more(meal_id, food_id, q):
+    conn = get_db_connection()
+    quantity = conn.execute("SELECT quantity FROM meal_items WHERE meal_id = ? AND food_id = ?", (meal_id, food_id,)).fetchone()
+    conn.execute("UPDATE meal_items SET quantity = ? WHERE meal_id = ? AND food_id = ?", (quantity + q, meal_id, food_id,))
+    conn.commit()
+    conn.close()

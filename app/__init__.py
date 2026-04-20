@@ -85,7 +85,7 @@ def calculate():
     if search:
         search = search.strip().lower()
         foods = search_food(search)
-    
+
     meal_items = []
     meal = get_meal(session['username'])
     if meal:
@@ -106,6 +106,30 @@ def add_food():
         meal = get_meal(username)
         meal_id = meal['id']
     add_meal_item(meal_id, food_id)
+    return redirect('/calculate')
+
+@app.route("/remove_food", methods=['GET', 'POST'])
+def remove_food():
+    food_id = request.form.get("rm_food")
+    username = session['username']
+    meal_id = get_meal(username)['id']
+    remove_meal_item(meal_id, food_id)
+    return redirect('/calculate')
+
+@app.route("/add_quantity", methods=['GET', 'POST'])
+def add_quantity():
+    food_id = request.form.get("add_more")
+    username = session['username']
+    meal_id = get_meal(username)['id']
+    add_more(meal_id, food_id, 1)
+    return redirect('/calculate')
+
+@app.route("/rm_quantity", methods=['GET', 'POST'])
+def rm_quantity():
+    food_id = request.form.get("add_less")
+    username = session['username']
+    meal_id = get_meal(username)['id']
+    add_more(meal_id, food_id, -1)
     return redirect('/calculate')
 
 @app.route("/error", methods=['GET', 'POST'])

@@ -13,6 +13,18 @@
   <div class="selected-foods">
     {% for item in meal_items %}
       <p>{{ item.name }} ({{ item.quantity }})</p>
+      <form action="/remove_food" method="post">
+        <input type="hidden" name="rm_food" value="{{ item.food_id }}">
+        <button type="submit">Remove</button>
+      </form>
+      <form action="/add_quantity" method="post">
+        <input type="hidden" name="add_more" value="{{ item.food_id }}">
+        <button type="submit">+</button>
+      </form>
+      <form action="/rm_quantity" method="post">
+        <input type="hidden" name="add_less" value="{{ item.food_id }}">
+        <button type="submit">-</button>
+      </form>
     {% endfor %}
   </div>
   <div class="searched-foods">
