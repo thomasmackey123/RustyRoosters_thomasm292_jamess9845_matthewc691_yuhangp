@@ -38,3 +38,7 @@ yuhangP -- 2026-4-16 20:50
 
 jamesS -- 2026-4-16 22:16
 - improved base, register, and login css, added bootstrap layouts for login and register UI
+
+yuhangP -- 2026-4-20 11:45
+- working on calculate page, need working rm food and change amount of food
+- add calories and other nutritioanl values
