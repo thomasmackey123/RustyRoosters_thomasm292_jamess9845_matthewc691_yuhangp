@@ -42,3 +42,9 @@ jamesS -- 2026-4-16 22:16
 yuhangP -- 2026-4-20 11:45
 - working on calculate page, need working rm food and change amount of food
 - add calories and other nutritioanl values
+
+yuhangP -- 2026-4-20 21:00
+- calculate page allows you to search for food in your meals and add it, you can adjust the quantities/servings
+- sums the nutrients and calories and display it on most pages
+- visualize page has a comparison of the nutrients in your meal vs. the average nutrients across a sample of 2000 people from our other dataset
+
