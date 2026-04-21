@@ -88,6 +88,22 @@ import_dataset(csv_path3)
 import_dataset(csv_path4)
 import_dataset(csv_path5)
 
+def get_avg_nutrients():
+    path = os.path.join(ABS_PATH, "static", "dataset", "user_nutritional_data.csv")
+    total_protein = total_carbs = total_fat = cnt = 0
+    with open(path) as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            total_protein += float(row["Proteins"])
+            total_carbs += float(row["Carbs"])
+            total_fat += float(row["Fats"])
+            cnt += 1
+    return {
+        "protein": total_protein/cnt,
+        "carbs": total_carbs/cnt,
+        "fat": total_fat/cnt
+    }
+
 def search_food(food):
     conn = get_db_connection()
     result = conn.execute("SELECT * FROM foods WHERE LOWER(name) LIKE ?", ("%" + food + "%",)).fetchall()
@@ -115,7 +131,7 @@ def add_meal_item(meal_id, food_id):
 def get_meal_items(meal_id):
     conn = get_db_connection()
     meal_items = conn.execute("""
-                            SELECT foods.name, foods.calories, meal_items.quantity
+                            SELECT meal_items.id, foods.name, foods.calories, foods.protein, foods.carbs, foods.fat, meal_items.quantity
                             FROM meal_items
                             JOIN foods ON foods.id = meal_items.food_id
                             WHERE meal_items.meal_id = ?
@@ -123,15 +139,16 @@ def get_meal_items(meal_id):
     conn.close()
     return meal_items
 
-def remove_meal_item(meal_id, food_id):
+def remove_meal_item(item_id):
     conn = get_db_connection()
-    conn.execute("DELETE FROM meal_items WHERE meal_id = ? AND food_id = ?", (meal_id, food_id,))
+    conn.execute("DELETE FROM meal_items WHERE id = ?", (item_id,))
     conn.commit()
     conn.close()
 
-def add_more(meal_id, food_id, q):
+def update_quantity(item_id, q):
     conn = get_db_connection()
-    quantity = conn.execute("SELECT quantity FROM meal_items WHERE meal_id = ? AND food_id = ?", (meal_id, food_id,)).fetchone()
-    conn.execute("UPDATE meal_items SET quantity = ? WHERE meal_id = ? AND food_id = ?", (quantity + q, meal_id, food_id,))
+    quantity = conn.execute("SELECT quantity FROM meal_items WHERE id = ?", (item_id,)).fetchone()[0]
+    new_quantity = max(1, quantity + q)
+    conn.execute("UPDATE meal_items SET quantity = ? WHERE id = ?", (new_quantity, item_id,))
     conn.commit()
     conn.close()

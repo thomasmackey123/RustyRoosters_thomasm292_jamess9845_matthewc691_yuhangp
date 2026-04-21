@@ -66,9 +66,18 @@ def login():
 
 @app.route("/dashboard", methods=['GET', 'POST'])
 def dashboard():
-    # gets json request
+    meal_items = []
+    meal = get_meal(session['username'])
+    if meal:
+        meal_items = get_meal_items(meal['id'])
+    total_calories = 0
+    if meal_items:
+        for item in meal_items:
+            total_calories += item['calories'] * item['quantity']
+
     return render_template('dashboard.html',
-                           username = session["username"])
+                           username = session["username"],
+                           total_calories = total_calories)
 
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
@@ -76,7 +85,30 @@ def profile():
 
 @app.route("/visualize", methods=['GET', 'POST'])
 def visualize():
-    return render_template('visualize.html')
+    meal_items = []
+    meal = get_meal(session['username'])
+    if meal:
+        meal_items = get_meal_items(meal['id'])
+    
+    total_calories = total_protein = total_carbs = total_fat = 0
+    for item in meal_items:
+        q = item["quantity"]
+        total_calories += (item["calories"] or 0) * q
+        total_protein += (item["protein"] or 0) * q
+        total_carbs += (item["carbs"] or 0) * q
+        total_fat += (item["fat"] or 0) * q
+
+    avg_nutrients = get_avg_nutrients()
+
+    return render_template('visualize.html',
+                           meal_items = meal_items,
+                           total_calories = total_calories,
+                           info = {
+                               "protein": total_protein,
+                               "carbs": total_carbs,
+                               "fat": total_fat
+                           },
+                           avg_nutrients = avg_nutrients)
 
 @app.route("/calculate", methods=['GET', 'POST'])
 def calculate():
@@ -90,9 +122,14 @@ def calculate():
     meal = get_meal(session['username'])
     if meal:
         meal_items = get_meal_items(meal['id'])
+
+    total_calories = 0
+    for item in meal_items:
+        total_calories += item['calories'] * item['quantity']
     return render_template('calculate.html',
                             foods = foods,
-                            meal_items = meal_items)
+                            meal_items = meal_items,
+                            total_calories = total_calories)
 
 @app.route("/add_food", methods=['GET', 'POST'])
 def add_food():
@@ -110,26 +147,20 @@ def add_food():
 
 @app.route("/remove_food", methods=['GET', 'POST'])
 def remove_food():
-    food_id = request.form.get("rm_food")
-    username = session['username']
-    meal_id = get_meal(username)['id']
-    remove_meal_item(meal_id, food_id)
+    item_id = request.form.get("item_id")
+    remove_meal_item(item_id)
     return redirect('/calculate')
 
 @app.route("/add_quantity", methods=['GET', 'POST'])
 def add_quantity():
-    food_id = request.form.get("add_more")
-    username = session['username']
-    meal_id = get_meal(username)['id']
-    add_more(meal_id, food_id, 1)
+    item_id = request.form.get("item_id")
+    update_quantity(item_id, 1)
     return redirect('/calculate')
 
 @app.route("/rm_quantity", methods=['GET', 'POST'])
 def rm_quantity():
-    food_id = request.form.get("add_less")
-    username = session['username']
-    meal_id = get_meal(username)['id']
-    add_more(meal_id, food_id, -1)
+    item_id = request.form.get("item_id")
+    update_quantity(item_id, -1)
     return redirect('/calculate')
 
 @app.route("/error", methods=['GET', 'POST'])

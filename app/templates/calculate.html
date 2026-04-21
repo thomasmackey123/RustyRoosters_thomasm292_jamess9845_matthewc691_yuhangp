@@ -4,28 +4,13 @@
 
 {% block content %}
 <div style="text-align: center; padding: 4rem; color: var(--text-muted);">
-  <h2>Calcualte calorie page</h2>
-  <h3>hi {{username}}!</h3>
-  <p>work in progress or sum</p>
-  <div id="food-container">
-
-  </div>
-  <div class="selected-foods">
-    {% for item in meal_items %}
-      <p>{{ item.name }} ({{ item.quantity }})</p>
-      <form action="/remove_food" method="post">
-        <input type="hidden" name="rm_food" value="{{ item.food_id }}">
-        <button type="submit">Remove</button>
-      </form>
-      <form action="/add_quantity" method="post">
-        <input type="hidden" name="add_more" value="{{ item.food_id }}">
-        <button type="submit">+</button>
-      </form>
-      <form action="/rm_quantity" method="post">
-        <input type="hidden" name="add_less" value="{{ item.food_id }}">
-        <button type="submit">-</button>
-      </form>
-    {% endfor %}
+  <h2>Calculate your daily calorie intake!</h2>
+  <div class="select-food">
+    <form method="get" action="/calculate">
+      <input type="text" name="searchbar" placeholder="Search for food..."
+        value="{{ request.args.get('searchbar', '') }}"">
+      <button type="submit">Search</button>
+    </form>
   </div>
   <div class="searched-foods">
     {% if foods %}
@@ -40,12 +25,26 @@
       {% endfor %}
     {% endif %}
   </div>
-  <div class="select-food">
-    <form method="get" action="/calculate">
-      <input type="text" name="searchbar" placeholder="Search for tierlist..."
-        value="{{ request.args.get('searchbar', '') }}"">
-      <button type="submit">Search</button>
-    </form>
+  <div class="selected-foods">
+    <h3>Total Calories: {{ total_calories }}</h3>
+    {% for item in meal_items %}
+      <div class=""food-card>
+        <p>{{ item.name }} ({{ item.quantity }})</p>
+        <p>{{ item.calories }} calories</p>
+        <form action="/remove_food" method="post">
+          <input type="hidden" name="item_id" value="{{ item.id }}">
+          <button type="submit">Remove</button>
+        </form>
+        <form action="/add_quantity" method="post">
+          <input type="hidden" name="item_id" value="{{ item.id }}">
+          <button type="submit">+</button>
+        </form>
+        <form action="/rm_quantity" method="post">
+          <input type="hidden" name="item_id" value="{{ item.id }}">
+          <button type="submit">-</button>
+        </form>
+      </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
