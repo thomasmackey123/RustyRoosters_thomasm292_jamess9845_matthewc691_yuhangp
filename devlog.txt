@@ -48,3 +48,13 @@ yuhangP -- 2026-4-20 21:00
 - sums the nutrients and calories and display it on most pages
 - visualize page has a comparison of the nutrients in your meal vs. the average nutrients across a sample of 2000 people from our other dataset
 - updated design doc
+
+thomasM -- 2026-4-20 22:57
+- Added to the profile page so that users can see their tracked meals and specific nutrients in their meals
+
+Home Stretch Checklist
+-------------------------
+* Clean up css :: James
+* Add one more data visualization chart :: Matthew and Yuhang
+* Finish up calculate page :: Thomas
+============================
