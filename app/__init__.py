@@ -81,7 +81,30 @@ def dashboard():
 
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
-    return render_template('profile.html')
+    username = session.get('username')
+    user_info = get_user_info(username)
+
+    meal_items = []
+    meal = get_meal(username)
+    if meal:
+        meal_items = get_meal_items(meal['id'])
+
+    total_calories = total_protein = total_carbs = total_fat = 0
+    for item in meal_items:
+        q = item['quantity']
+        total_calories += (item['calories'] or 0) * q
+        total_protein  += (item['protein']  or 0) * q
+        total_carbs    += (item['carbs']    or 0) * q
+        total_fat      += (item['fat']      or 0) * q
+
+    return render_template('profile.html',
+                           username=username,
+                           user_info=user_info,
+                           meal_items=meal_items,
+                           total_calories=round(total_calories, 1),
+                           total_protein=round(total_protein, 1),
+                           total_carbs=round(total_carbs, 1),
+                           total_fat=round(total_fat, 1))
 
 @app.route("/visualize", methods=['GET', 'POST'])
 def visualize():
