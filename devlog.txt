@@ -58,3 +58,6 @@ Home Stretch Checklist
 * Add one more data visualization chart :: Matthew and Yuhang
 * Finish up calculate page :: Thomas
 ============================
+
+yuhangP -- 2026-4-20 11:45
+- trying to add more to graphs with d3

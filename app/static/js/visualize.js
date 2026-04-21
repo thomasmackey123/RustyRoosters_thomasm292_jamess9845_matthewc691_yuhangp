@@ -9,12 +9,56 @@ document.addEventListener("DOMContentLoaded", () => {
     const avg_data = JSON.parse(
         document.getElementById("avg").textContent
     );
+    const total_calories = JSON.parse(
+      document.getElementById("calories").textContent
+    );
+    total_calories = Math.round(total_calories/100.0) * 100
+
+    // const calorie_group = [
+    //   {calorie: 1000, protein: 45, carbs: 128, fat: 37},
+    //   {calorie: 1100, protein: 50, carbs: 140, fat: 40},
+    //   {calorie: 1200, protein: 54, carbs: 153, fat: 44},
+    //   {calorie: 1300, protein: 59, carbs: 166, fat: 48},
+    //   {calorie: 1400, protein: 63, carbs: 179, fat: 51},
+    //   {calorie: 1500, protein: 68, carbs: 191, fat: 55},
+    //   {calorie: 1600, protein: 72, carbs: 204, fat: 59},
+    //   {calorie: 1700, protein: 77, carbs: 217, fat: 62},
+    //   {calorie: 1800, protein: 81, carbs: 230, fat: 66},
+    //   {calorie: 1900, protein: 86, carbs: 242, fat: 70},
+    //   {calorie: 2000, protein: 90, carbs: 255, fat: 73},
+    //   {calorie: 2100, protein: 95, carbs: 268, fat: 77},
+    //   {calorie: 2200, protein: 99, carbs: 281, fat: 81},
+    //   {calorie: 2300, protein: 104, carbs: 293, fat: 84},
+    //   {calorie: 2400, protein: 108, carbs: 306, fat: 88},
+    //   {calorie: 2500, protein: 113, carbs: 319, fat: 92}
+    // ];
+
+    let rec = {};
+    rec['1000'] = {"protein": 45, "carbs": 128, "fat": 37};
+    rec['1100'] = {"protein": 50, "carbs": 140, "fat": 40};
+    rec['1200'] = {"protein": 54, "carbs": 153, "fat": 44};
+    rec['1300'] = {"protein": 59, "carbs": 166, "fat": 48};
+    rec['1400'] = {"protein": 63, "carbs": 179, "fat": 51};
+    rec['1500'] = {"protein": 68, "carbs": 191, "fat": 55};
+    rec['1600'] = {"protein": 72, "carbs": 204, "fat": 59};
+    rec['1700'] = {"protein": 77, "carbs": 217, "fat": 62};
+    rec['1800'] = {"protein": 81, "carbs": 230, "fat": 66};
+    rec['1900'] = {"protein": 86, "carbs": 242, "fat": 70};
+    rec['2000'] = {"protein": 90, "carbs": 255, "fat": 73};
+    rec['2100'] = {"protein": 95, "carbs": 268, "fat": 77};
+    rec['2200'] = {"protein": 99, "carbs": 281, "fat": 81};
+    rec['2300'] = {"protein": 104, "carbs": 293, "fat": 84};
+    rec['2400'] = {"protein": 108, "carbs": 306, "fat": 88};
+    rec['2500'] = {"protein": 113, "carbs": 319, "fat": 92};
+
+    const recs = rec[total_calories];
+
 
     // put data for bar graph
     const data = [
-        { nutrient: "Protein", user: user_data.protein, avg: avg_data.protein },
-        { nutrient: "Carbs", user: user_data.carbs, avg: avg_data.carbs },
-        { nutrient: "Fat", user: user_data.fat, avg: avg_data.fat }
+        { nutrient: "Protein", user: user_data.protein, avg: avg_data.protein, rec: recs.protein },
+        { nutrient: "Carbs", user: user_data.carbs, avg: avg_data.carbs, rec: recs.carbs },
+        { nutrient: "Fat", user: user_data.fat, avg: avg_data.fat, rec: recs.fat }
     ];
 
     const width = 500;
@@ -32,12 +76,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // subgraphs for user and avg data
     const x1 = d3.scaleBand()
-        .domain(["user", "avg"])
+        .domain(["user", "avg", "rec"])
         .range([0, x0.bandwidth()])
         .padding(0.1);
 
     const y = d3.scaleLinear()
-        .domain([0, d3.max(data, d => Math.max(d.user, d.avg))])
+        .domain([0, d3.max(data, d => Math.max(d.user, d.avg, d.rec))])
         .nice()
         .range([height - margin, margin]);
 
@@ -50,6 +94,40 @@ document.addEventListener("DOMContentLoaded", () => {
         .attr("transform", `translate(${margin},0)`)
         .call(d3.axisLeft(y));
 
+    // // create a tooltip
+    // const Tooltip = d3.select("#container")
+    //     .append("div")
+    //     .style("opacity", 0)
+    //     .attr("class", "tooltip")
+    //     .style("position", "absolute")
+    //     .style("background-color", "white")
+    //     .style("border", "1px solid black")
+    //     .style("border-radius", "5px")
+    //     .style("padding", "6px")
+    //     .style("pointer-events", "none");
+    //
+    // // Three function that change the tooltip when user hover / move / leave a cell
+    // var mouseover = function(event, e) {
+    //     Tooltip
+    //     .style("opacity", 1)
+    //     d3.select(this)
+    //     .style("stroke", "black")
+    //     .style("opacity", 1)
+    // }
+    // var mousemove = function(event, e) {
+    //     Tooltip
+    //     .html(`Age: ${e.Age}<br>Calories: ${e.Calories}<br>${e.Gender === 0 ? "Gender: Male" : "Gender: Female"}`)
+    //     .style("left", (event.pageX + 10) + "px")
+    //     .style("top", (event.pageY + 10) + "px");
+    // }
+    // var mouseleave = function(event, e) {
+    //     Tooltip
+    //     .style("opacity", 0)
+    //     d3.select(this)
+    //     .style("stroke", "none")
+    //     .style("opacity", 0.8)
+    // }
+
     // bars
     svg.append("g")
         .selectAll("g")
@@ -60,7 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .selectAll("rect")
         .data(d => [
             { key: "user", value: d.user },
-            { key: "avg", value: d.avg }
+            { key: "avg", value: d.avg },
+            { key: "rec", value: d.rec}
         ])
         .enter()
         .append("rect")
@@ -69,6 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .attr("width", x1.bandwidth())
         .attr("height", d => height - margin - y(d.value))
         .attr("fill", d => d.key === "user" ? "blue" : "gray");
+        // .on("mouseover", mouseover)
+        // .on("mousemove", mousemove)
+        // .on("mouseleave", mouseleave);
 
     // legend
     const legend = svg.append("g")

@@ -7,13 +7,16 @@
   <h2>Your nutrient intake vs. a sample of 2000 people</h2>
 
   <h3>Total Calories: {{ total_calories }}</h3>
-  
+
   <div id="container" style="margin-top: 40px;"></div>
   <script id="info" type="application/json">
     {{ info | tojson }}
   </script>
   <script id="avg" type="application/json">
     {{ avg_nutrients | tojson }}
+  </script>
+  <script id="calories" type="application/json">
+    {{ total_calories | tojson }}
   </script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script type="module" src="{{ url_for('static', filename='js/visualize.js') }}"></script>
