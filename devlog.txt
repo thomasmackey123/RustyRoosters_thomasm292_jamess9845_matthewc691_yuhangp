@@ -59,8 +59,11 @@ Home Stretch Checklist
 * Finish up calculate page :: Thomas
 ============================
 
-yuhangP -- 2026-4-20 11:45
+yuhangP -- 2026-4-21 11:45
 - trying to add more to graphs with d3
 
 jamesS -- 2026-4-21 17:39 
 - completely restyled the UI for adding food in calculate.html
+
+yuhangP -- 2026-4-21 19:48
+- fixed bar graph on calculate page with another bar showing the recommended amount of nutrients per day
