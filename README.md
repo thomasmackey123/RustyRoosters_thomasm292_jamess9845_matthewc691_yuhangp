@@ -48,9 +48,9 @@ http://127.0.0.1:8000
 * On the Calculate page, search for any food and instantly add it to your meal. It will appear in your daily intake and be bar graph will be updated accordingly.
 * The Dashboard shows your current total calorie intake along with a quick note on your calorie range, whether it's too high/low or just right.
 * On the Visualize page, compare your protein, carbs, and fat intake against:
-- your own data
-- averages from a 2000-person dataset
-- recommended values based on your calories
+1. your own data
+2. averages from a 2000-person dataset
+3. recommended values based on your calories
 * Try hovering over the graphs to see exact values!
 
 ### KNOWN BUGS/ISSUES
