@@ -68,3 +68,10 @@ jamesS -- 2026-4-21 17:39
 yuhangP -- 2026-4-21 19:48
 - fixed bar graph on calculate page with another bar showing the recommended amount of nutrients per day
 - yapped on more pages
+
+NOTABLE DESIGN REVISIONS:
+------------------------------------
+====================================
+- updated the component map and site map to reflect are most up-to-date site
+- added brief desc of the graphs we implemented
+- updated minor issues like file names being inconsistent across the design doc
