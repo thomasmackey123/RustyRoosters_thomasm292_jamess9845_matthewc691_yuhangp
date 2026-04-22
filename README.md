@@ -8,6 +8,11 @@ Fitness Genie is a meal calorie calculator. Users can sign up/login, track a mea
 #### Visit our live site at [Fitness Genie](http://104.236.38.28:8000)
 
 # Install Guide
+0. Download the datasets and move them into the app/static/dataset directory
+```
+https://www.kaggle.com/datasets/abdussamad123/user-daily-nutritional-intake 
+https://www.kaggle.com/datasets/utsavdey1410/food-nutrition-dataset/data 
+```
 1. Clone the repository
 ```
 git clone git@github.com:thomasmackey123/RustyRoosters_thomasm292_jamess9845_matthewc691_yuhangp.git FitnessGenie
