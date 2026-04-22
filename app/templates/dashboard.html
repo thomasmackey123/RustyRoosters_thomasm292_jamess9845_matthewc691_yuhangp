@@ -5,9 +5,19 @@
 {% block content %}
 <div style="text-align: center; padding: 4rem; color: var(--text-muted);">
   <h2>Dashboard</h2>
-  <h3>hi {{username}}!</h3>
-  <h3>Your current total calories is: {{ total_calories }}</h3>
-  <p>Sample Calorie Intake Data</p>
+  <h3>Hi {{username}}!</h3>
+  <p>Here's a quick view of your nutrition today.</p>
+  <h3>Your total calorie intake: {{ total_calories }}</h3>
+  <p>
+    {% if total_calories < 1800 %}
+      You're currently below a typical daily intake. Consider adding a meal or snack.
+    {% elif total_calories > 2500 %}
+      You're above a typical daily intake. You may want to balance your meals.
+    {% else %}
+      You're within a healthy calorie range. Muy BIEN!
+    {% endif %}
+  </p>
+  <p style="margin-top:20px;">Use the navigation above to explore your nutrition data and adjust you meal.</p>
 
   <div id="container" style="margin-top: 40px;"></div>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>

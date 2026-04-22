@@ -4,9 +4,19 @@
 
 {% block content %}
 <div style="text-align: center; padding: 4rem; color: var(--text-muted);">
-  <h2>Your nutrient intake vs. a sample of 2000 people</h2>
-
+  <h2>Nutrient Breakdown</h2>
+  <p>
+    This chart compares your daily intake of protein, carbohydrates, and fats
+    against both the average intake of 2000 individuals and recommended values
+    based on your calorie level.
+  </p>
   <h3>Total Calories: {{ total_calories }}</h3>
+  <p>Each group shows:</p>
+  <ul>
+    <li><strong>You</strong> — your current intake</li>
+    <li><strong>Average</strong> — typical intake from sample data</li>
+    <li><strong>Recommended</strong> — suggested intake based on your calories</li>
+  </ul>
 
   <div id="container" style="margin-top: 40px;"></div>
   <script id="info" type="application/json">
